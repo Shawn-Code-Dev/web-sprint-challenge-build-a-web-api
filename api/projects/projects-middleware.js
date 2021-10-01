@@ -3,7 +3,9 @@ const yup = require('yup')
 
 async function validateProjectId(req, res, next) {
   try {
-    const projId = await Projects.get(req.params.id)
+    let id = req.params.id
+    if (req.body.project_id) { id = req.body.project_id }
+    const projId = await Projects.get(id)
     if (projId) {
       req.project = projId
       next()
